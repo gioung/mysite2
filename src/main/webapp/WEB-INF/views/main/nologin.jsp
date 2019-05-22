@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<script>alert('로그인이 필요합니다.');</script>
+	<script>location.href='${pageContext.servletContext.contextPath }'</script>
 </body>
 </html>

@@ -19,71 +19,24 @@ import com.cafe24.mysite.repository.vo.GuestbookVo;
 @Repository
 public class GuestbookDao {
 	
+	public GuestbookDao() {
+		System.out.println("GuestbookDao Constructor");
+	}
+	
 	@Autowired
-	private DataSource datasource;
-	/*@Autowired
-	private SqlSession sqlSession;*/
+	private SqlSession sqlSession;
 
-	public boolean insert(GuestbookVo vo) {
-		Boolean result = false;
-		Connection conn = null; 
-		PreparedStatement pstmt = null;
-		try {
-				conn = datasource.getConnection();
-				String sql="insert into guestbook(name,password,contents,reg_date) value(?,?,?,now())";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, vo.getName());
-				pstmt.setString(2, vo.getPassword());
-				pstmt.setString(3, vo.getContents());
-				int count = pstmt.executeUpdate();
-				result = (count == 1);
-				
-		}catch (SQLException e) {
-				// TODO Auto-generated catch block
-			 System.out.println("error" + e);
-			}
-		finally {
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				};
-		}return result;
-		
+	public int delete( GuestbookVo vo ) {
+		int count = sqlSession.delete( "guestbook.delete", vo );
+		return count;
 	}
 	
-	public boolean delete(GuestbookVo vo) {
-		Boolean result = false;
-		Connection conn = null; 
-		PreparedStatement pstmt = null;
-		try {
-				conn = datasource.getConnection();
-				String sql="delete from guestbook where no=? and password=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setLong(1, vo.getNo());
-				pstmt.setString(2,vo.getPassword() );
-				int count = pstmt.executeUpdate();
-				result = (count == 1);
-				
-		}catch (SQLException e) {
-				// TODO Auto-generated catch block
-			 System.out.println("error" + e);
-			}
-		finally {
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				};
-		}return result;
+	public int insert( GuestbookVo vo ) {
+		return sqlSession.insert( "guestbook.insert", vo );
 	}
 	
-	/*public List<GuestbookVo> getList(){
-		List<GuestbookVo> result=sqlSession.selectList("guestbook.getList");
+	public List<GuestbookVo> getList(){
+		List<GuestbookVo> result = sqlSession.selectList( "guestbook.getList" );
 		return result;
-	}*/
+	}
 }

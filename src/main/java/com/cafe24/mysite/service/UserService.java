@@ -8,9 +8,17 @@ import com.cafe24.mysite.repository.vo.UserVo;
 
 @Service
 public class UserService {
+	public UserService() {
+		System.out.println("UserService constructora");
+	}
 	
 	@Autowired
 	private UserDao userDao;
+	
+	public Boolean existEmail(String email) {
+		UserVo userVo=userDao.get(email);
+		return userVo != null;
+	}
 	
 	public boolean join(UserVo userVo) {
 		return userDao.insert(userVo);
@@ -18,10 +26,17 @@ public class UserService {
 	
 	
 	public UserVo getUser(Long userNo) {
-		return null;
+		return userDao.get(userNo);
 	}
 	public UserVo getUser(UserVo userVo) {
 		return userDao.get(userVo.getEmail(), userVo.getPassword());
 	}
+	
+	public int update(UserVo userVo) {
+		return userDao.update(userVo);
+	}
+	
+
+	
 
 }

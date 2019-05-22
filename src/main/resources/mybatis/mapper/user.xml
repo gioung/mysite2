@@ -7,7 +7,7 @@
 	<![CDATA[
 	insert into user(name,email,password,gender,join_date) value(#{name },#{email },#{password },#{gender },now())
 	]]>
-	<selectKey keyProperty="no" resultType="long">
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
 	<![CDATA[
 	select last_insert_id()
 	]]>
@@ -15,10 +15,27 @@
 	</selectKey>
 	</insert>
 	
-	<select id="getByEmailAndPassword" parameterType='com.cafe24.mysite.repository.vo.UserVo' resultType='uservo' >
+	<select id="getByEmailAndPassword" parameterType='map' resultType='uservo' >
 	<![CDATA[
-	select name,email,password from user where no=#{no }
+	select no,name,email,password from user where email=#{email } 
+		   and password=#{password }
 	]]>
+	</select>
+	
+	<select id="getByNo" resultType="uservo" parameterType='long'>
+		<![CDATA[	 
+		select no, name, email, gender
+		  from user 
+		 where no = #{value }
+		]]>
+	</select>
+	
+	<select id="getByEmail" resultType="uservo" parameterType='string'>
+		<![CDATA[	 
+		select no, name, email, gender
+		  from user 
+		 where email = #{value }
+		]]>
 	</select>
 	
 	<update id="update" parameterType="uservo">
@@ -27,11 +44,10 @@
 			]]>
 			<if test="password !=''">
 			<![CDATA[
-				password=#{password },
+				password=#{password } 
 				]]>
 			</if>
 		<![CDATA[		
-			gender=#{gender } 
 			where no = #{no }
 		
 		]]>
