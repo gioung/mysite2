@@ -160,6 +160,12 @@
 							<exclude>**/*.java</exclude>
 						</excludes>
 					</resource>
+					<resource>
+						<directory>${project.basedir}/src/main/production</directory>
+						<excludes>
+							<exclude>**/*.java</exclude>
+						</excludes>
+					</resource>
 				</resources>
 				<plugins>
 					<plugin>
