@@ -53,7 +53,7 @@
 							</tr>
 							<tr>
 								<td colspan=4>
-									${fn:replace(vo.contents,"newline","<br>") }
+									${fn:replace(vo.contents,newline,"<br>") }
 								</td>
 							</tr>
 						</table>

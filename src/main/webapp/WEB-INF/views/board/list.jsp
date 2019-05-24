@@ -32,11 +32,13 @@
 					<tr>
 						<td>${vo.no }</td>
 						<td style="text-align:left; padding-left:10px">
-						<a href="">${vo.title }</a></td>
+						<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no }">${vo.title }</a></td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
 						<td>${vo.reg_date }</td>
-						<td><a href="" class="del">삭제</a></td>
+						<c:if test="${not empty authUser and vo.user_no eq authUser.no }">
+						<td><a href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }" class="del">삭제</a></td>
+						</c:if>
 					</tr>
 					</c:forEach>	
 					

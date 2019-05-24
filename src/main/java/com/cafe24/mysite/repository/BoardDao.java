@@ -19,8 +19,37 @@ public class BoardDao {
 		return (1==sqlSession.insert("board.insert", vo));
 	}
 	
+	public long getMaxGroupid() {
+		long maxGroupid = sqlSession.selectOne("board.getMaxGroupid");
+		
+		return maxGroupid;
+	}
+	
 	public List<BoardVo> getList(){
 		List<BoardVo> result = sqlSession.selectList( "board.getList" );
 		return result;
 	}
+
+	public BoardVo getBoard(long no) {
+		BoardVo boardVo = sqlSession.selectOne("board.getBoard",no);
+		return boardVo;
+	}
+
+	public boolean update(BoardVo boardVo) {
+		int correct = sqlSession.update("board.update", boardVo);
+		return (correct==1);
+		
+	}
+
+	public boolean delete(long no) {
+		int correct = sqlSession.delete("board.delete", no);
+		return (correct==1);
+	}
+
+	public void updateOrderNo(BoardVo replyvo) {
+		sqlSession.update("board.updateOrderNo", replyvo);
+		
+	}
+	
+	
 }

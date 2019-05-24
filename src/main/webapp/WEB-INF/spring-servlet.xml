@@ -13,7 +13,7 @@
 	<aop:aspectj-autoproxy />
 
 
-	<!-- 1. validator, conversionService, messageConverter를 자동으로 등록 -->
+	<!--  validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean
@@ -34,13 +34,17 @@
 			</bean>
 
 		</mvc:message-converters>
-
+		<!-- Argument Resolver -->
+		<mvc:argument-resolvers>
+			<bean class="com.cafe24.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+		
 	</mvc:annotation-driven>
 
-	<!-- 2. 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
+	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
 
-	<!-- 3. ViewResolver Annotation이 없기때문에 property 설정을 함 -->
+	<!-- ViewResolver Annotation이 없기때문에 property 설정을 함 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -49,7 +53,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- 6. MessageSource -->
+	<!-- MessageSource -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -58,6 +62,43 @@
 			</list>
 		</property>
 	</bean>
+	
+	   <!-- Interceptors -->
+    <mvc:interceptors>
+    <!--
+        <mvc:interceptor>
+        	<mvc:mapping path="/guestbook/**" /> 
+    	<bean class="com.cafe24.mysite.interceptor.MyInterceptor02" />
+        </mvc:interceptor> -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/user/auth" /> 
+    	<bean class="com.cafe24.security.AuthLoginInterceptor" />
+        </mvc:interceptor>
+         <mvc:interceptor>
+        	<mvc:mapping path="/user/logout" /> 
+    	<bean class="com.cafe24.security.AuthLogoutInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+        	<mvc:mapping path="/**" /> 
+        	<mvc:exclude-mapping path="/"/>
+        	<mvc:exclude-mapping path="/main"/>
+        	<mvc:exclude-mapping path="/user/login"/>
+        	<mvc:exclude-mapping path="/user/auth"/>
+        	<mvc:exclude-mapping path="/user/join*"/>
+        	<mvc:exclude-mapping path="/user/logout"/>
+        	<mvc:exclude-mapping path="/user/api/*"/>
+        	<mvc:exclude-mapping path="/assets/**"/>
+        	
+    	<bean class="com.cafe24.security.AuthInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+        	<mvc:mapping path="/board/update/*" /> 
+        	<mvc:mapping path="/board/delete/*" /> 
+    	<bean class="com.cafe24.security.AuthBoardAccessInterceptor" />
+        </mvc:interceptor>
+      
+    </mvc:interceptors>
+	
 
 
 
