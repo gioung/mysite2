@@ -15,8 +15,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="search" method="post">
+					<input type="text" id="kwd" name="kwd" value="%">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -28,10 +28,14 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>
+					
 					<c:forEach items='${list }' var='vo' varStatus='status' >			
 					<tr>
 						<td>${vo.no }</td>
-						<td style="text-align:left; padding-left:10px">
+						<td style="text-align:left; padding-left:${(vo.depth+1)*10 }px">
+						<c:if test="${vo.depth ne 0}">
+						<img src="${pageContext.servletContext.contextPath }/assets/reply.png">
+						</c:if>
 						<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no }">${vo.title }</a></td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
@@ -46,13 +50,25 @@
 					<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<c:if test="${pageNo-1 >= 1}">
+						<li><a href="${pageContext.servletContext.contextPath }/board/1">◀</a></li>
+						</c:if>
+						<c:if test="${pageNo-2 >= 1}">
+						<li><a href="${pageContext.servletContext.contextPath }/board/${pageNo-2 }">${pageNo-2 }</a></li>
+						</c:if>
+						<c:if test="${pageNo-1 >= 1}">
+						<li><a href="${pageContext.servletContext.contextPath }/board/${pageNo-1 }">${pageNo-1 }</a></li>
+						</c:if>
+						<li class="selected">${pageNo }</li>
+						<c:if test="${pageNo+1<=pageCount }">
+						<li><a href="${pageContext.servletContext.contextPath }/board/${pageNo+1 }">${pageNo+1 }</a></li>
+						</c:if>
+						<c:if test="${pageNo+2<=pageCount }">
+						<li><a href="${pageContext.servletContext.contextPath }/board/${pageNo+2 }">${pageNo+2 }</a></li>
+						</c:if>
+						<c:if test="${pageNo+1<=pageCount }">
+						<li><a href="${pageContext.servletContext.contextPath }/board/${pageCount }">▶</a></li>
+						</c:if>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->

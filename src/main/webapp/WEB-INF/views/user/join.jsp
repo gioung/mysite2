@@ -14,7 +14,7 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/user.css"
 	rel="stylesheet" type="text/css">
-<script
+<script>
 	src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
 	$(function() {
@@ -69,7 +69,7 @@
 		<div id="content">
 			<div id="user">
 
-				<form:form modelAttribute="userVo"
+				<form:form commandName="userVo"
 				 id="join-form" 
 					name="joinForm" 
 					method="POST"

@@ -28,8 +28,12 @@ public class BoardService {
 		return boardDao.insert(vo);
 	}
 	
-	public List<BoardVo> getContentList() {
-		return boardDao.getList();
+	public int getContentCount() {
+		return boardDao.getCount();
+	}
+	
+	public List<BoardVo> getContentList(int pageNo,int NumberListPerPage) {
+		return boardDao.getPageList(pageNo,NumberListPerPage);
 	}
 
 	public BoardVo getBoard(long no) {
@@ -59,9 +63,15 @@ public class BoardService {
 		//depth = 부모의 depth+1
 		long depth = vo.getDepth()+1;
 		replyvo.setDepth(depth);
+		
+		//order_no를 update하기
+		boardDao.updateOrderNo(replyvo);
+		
+		//System.out.println(replyvo);
+		
 		//위조건을 만족하는 BoardVo 객체를 insert 하기 
 		boardDao.insert(replyvo);
-		boardDao.updateOrderNo(replyvo);
+		
 	}
 
 }

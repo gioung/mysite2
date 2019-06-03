@@ -19,9 +19,6 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	public UserDao() {
-		
-		
-		
 		System.out.println("UserDao Constructor");
 	}
 	

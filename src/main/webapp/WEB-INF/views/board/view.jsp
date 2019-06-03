@@ -39,7 +39,7 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
+					<a href="${pageContext.servletContext.contextPath }/board/1">글목록</a>
 					<c:if test="${authUser.no eq boardVo.user_no}">
 					<a href="${pageContext.servletContext.contextPath }/board/update/${boardVo.no }">글수정</a>
 					</c:if>

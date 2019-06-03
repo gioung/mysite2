@@ -1,9 +1,6 @@
 package com.cafe24.mysite.controller;
 
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.mysite.repository.vo.BoardVo;
-import com.cafe24.mysite.repository.vo.UserVo;
 import com.cafe24.mysite.service.BoardService;
 
 @Controller
@@ -21,13 +18,33 @@ import com.cafe24.mysite.service.BoardService;
 public class BoardController {
 	@Autowired
 	BoardService boardservice;
+	private final static int NUMBER_LIST_PERPAGE=5;
+	private final String REDIRECT = "redirect:/board/1";
 	
-	@RequestMapping("")
-	public String list(Model model) {
-		List<BoardVo> list = boardservice.getContentList();
+	@RequestMapping("/{pageNo}")
+	public String list(@PathVariable("pageNo")int pageNo, Model model,String search) {
+		
+		int listCount = boardservice.getContentCount();
+		System.out.println("listCount = " + listCount);
+		int pageCount = listCount/NUMBER_LIST_PERPAGE;
+		System.out.println("pageCount = " + pageCount);
+		int remainder = (int)(listCount%NUMBER_LIST_PERPAGE);
+		if(remainder > 0)
+			pageCount++;
+		
+		if(pageNo < 1 || pageNo > pageCount) {
+			pageNo = 1;
+		}
+		List<BoardVo> list = boardservice.getContentList(pageNo, NUMBER_LIST_PERPAGE);
 		model.addAttribute("list", list);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("pageCount", pageCount);
+		
+		System.out.println(pageCount);
 		return "board/list";
 	}
+	
+	//@RequestMapping("")
 	
 	
 	
@@ -42,7 +59,7 @@ public class BoardController {
 	public String write(@ModelAttribute BoardVo boardVo) {
 		
 		boardservice.writeContent(boardVo);
-		return "redirect:/board";
+		return REDIRECT;
 	}
 	
 	@RequestMapping(value="/view/{no}",method=RequestMethod.GET)
@@ -87,7 +104,7 @@ public class BoardController {
 		//글번호 delete 쿼리 실행
 		boardservice.delete(no);
 		//redirect:/board
-		return "redirect:/board";
+		return REDIRECT;
 	}
 	
 	@RequestMapping(value="/reply/{no}",method=RequestMethod.GET)
@@ -104,8 +121,10 @@ public class BoardController {
 		//댓글 insert 
 		boardservice.writeReply(replyVo);
 		//board로 redirect
-		return "redirect:/board";
+		return REDIRECT;
 	}
+	
+	
 	
 	
 	

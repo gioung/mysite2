@@ -1,13 +1,14 @@
 package com.cafe24.mysite.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.mysite.repository.vo.BoardVo;
-import com.cafe24.mysite.repository.vo.GuestbookVo;
 
 @Repository
 public class BoardDao {
@@ -26,13 +27,22 @@ public class BoardDao {
 	}
 	
 	public List<BoardVo> getList(){
-		List<BoardVo> result = sqlSession.selectList( "board.getList" );
+		List<BoardVo> result = sqlSession.selectList( "board.getList");
 		return result;
 	}
 
 	public BoardVo getBoard(long no) {
 		BoardVo boardVo = sqlSession.selectOne("board.getBoard",no);
 		return boardVo;
+	}
+	
+	public List<BoardVo> getPageList(int pageNo, int numberListPerPage) {
+		Map<String,Integer> pageInfoList = new HashMap<>();
+		pageInfoList.put("pageNo", pageNo);
+		pageInfoList.put("numberListPerPage",numberListPerPage);
+		List<BoardVo> list = sqlSession.selectList("board.getPageList", pageInfoList);
+		
+		return list;
 	}
 
 	public boolean update(BoardVo boardVo) {
@@ -50,6 +60,13 @@ public class BoardDao {
 		sqlSession.update("board.updateOrderNo", replyvo);
 		
 	}
+
+	public int getCount() {
+		
+		return sqlSession.selectOne("board.getCount");
+	}
+
+	
 	
 	
 }

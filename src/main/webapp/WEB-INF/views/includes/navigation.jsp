@@ -12,11 +12,9 @@
 <body>
 	<div id="navigation">
 		<ul>
-			<li><a href="${pageContext.servletContext.contextPath}/">안대혁</a></li>
+			<li><a href="${pageContext.servletContext.contextPath}/">남기웅</a></li>
 			<li><a href="${pageContext.servletContext.contextPath}/guestbook">방명록</a></li>
-			<li><a href="${pageContext.servletContext.contextPath}/board">게시판</a></li>
-
-
+			<li><a href="${pageContext.servletContext.contextPath}/board/1">게시판</a></li>
 		</ul>
 	</div>
 

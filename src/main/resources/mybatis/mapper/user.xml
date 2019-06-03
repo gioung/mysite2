@@ -37,7 +37,7 @@
 		 where email = #{value }
 		]]>
 	</select>
-	
+		
 	<update id="update" parameterType="uservo">
 		<![CDATA[
 			update user set name=#{name },
