@@ -233,7 +233,7 @@
 					<path>/mysite2</path>
 					<username>admin</username>
 					<password>manager</password>
-				</configuration>
+				</configuration> 
 			</plugin> 
 			
 		</plugins>
