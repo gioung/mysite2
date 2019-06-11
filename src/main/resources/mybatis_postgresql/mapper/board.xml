@@ -12,7 +12,7 @@
 		select b.no,b.title,u.name,b.hit,b.reg_date,b.member_no,b.group_no,b.order_no,b.depth 
 		from board b,member u 
 		where b.member_no=u.no 
-		order by group_no desc,order_no asc;
+		order by group_no desc,order_no asc ;
 	 	]]>	
 	</select>
 	
