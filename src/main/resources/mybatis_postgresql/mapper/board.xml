@@ -36,7 +36,7 @@
 			from board b,member u 
 			where b.member_no=u.no 
 			order by group_no desc,order_no asc 
-			limit ${(pageNo -1)*numberListPerPage},${numberListPerPage }; 
+			limit ${numberListPerPage } offset ${(pageNo -1)*numberListPerPage}; 
 		]]>
 	
 	</select>

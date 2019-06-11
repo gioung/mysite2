@@ -7,8 +7,8 @@
 		<typeAlias alias="boardvo" type="com.cafe24.mysite.repository.vo.BoardVo"/>
     	</typeAliases>	
 	<mappers>
-		<mapper resource="mybatis_mariadb/mapper/user.xml" />
-		<mapper resource="mybatis_mariadb/mapper/guestbook.xml" />
-		<mapper resource="mybatis_mariadb/mapper/board.xml" />
+		<mapper resource="mapper/user.xml" />
+		<mapper resource="mapper/guestbook.xml" />
+		<mapper resource="mapper/board.xml" />
 	</mappers>
 </configuration>

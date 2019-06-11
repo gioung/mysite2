@@ -5,7 +5,7 @@
 
 	<insert id="insert" parameterType="uservo">
 	<![CDATA[
-	insert into member(name,email,password,gender,join_date) value(#{name },#{email },#{password },#{gender },now())
+	insert into member(name,email,password,gender,join_date) values(#{name },#{email },#{password },#{gender },now())
 	]]>
 	<selectKey keyProperty="no" resultType="long" order="AFTER">
 	<![CDATA[

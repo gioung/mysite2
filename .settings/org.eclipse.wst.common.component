@@ -9,6 +9,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/development/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources/mybatis_postgresql"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources/messages"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
                                 
         
         
