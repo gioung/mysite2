@@ -25,6 +25,7 @@ public class BoardService {
 		vo.setGroup_no(maxGroupid);
 		vo.setOrder_no(1L);
 		vo.setDepth(0);
+		System.out.println("입력된 정보 = "+vo);
 		return boardDao.insert(vo);
 	}
 	

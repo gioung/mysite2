@@ -159,13 +159,7 @@
 			<build>
 				<resources>
 					<resource>
-						<directory>${project.basedir}/src/main/resources/messages</directory>
-						<excludes>
-							<exclude>**/*.java</exclude>
-						</excludes>
-					</resource>
-					<resource>
-						<directory>${project.basedir}/src/main/resources/mybatis_mariadb</directory>
+						<directory>${project.basedir}/src/main/resources</directory>
 						<excludes>
 							<exclude>**/*.java</exclude>
 						</excludes>
