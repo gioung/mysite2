@@ -40,7 +40,7 @@ public class AuthBoardAccessInterceptor extends HandlerInterceptorAdapter {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
 		//세션의 유저아이디와 게시글의 유저넘버 비교 다르다면 board로 리다이렉트
-		if(authUser.getNo()!=boardVo.getUser_no()) {
+		if(authUser.getNo()!=boardVo.getmember_no()) {
 			System.out.println("허가받지 않은 사용자 글번호:"+no+"접근");
 			response.sendRedirect(request.getContextPath()+"/board");		
 			return false;

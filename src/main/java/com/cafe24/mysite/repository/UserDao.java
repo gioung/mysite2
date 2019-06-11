@@ -23,17 +23,17 @@ public class UserDao {
 	}
 	
 	public int update(UserVo vo) {
-		return sqlSession.update( "user.update", vo );
+		return sqlSession.update( "member.update", vo );
 	}
 	
 	public boolean insert(UserVo vo) {
-		int count = sqlSession.insert("user.insert", vo);
+		int count = sqlSession.insert("member.insert", vo);
 		System.out.println(vo);
 		return 1 == count;
 		
 	}
 	public UserVo get(Long no) throws UserDaoException{
-		return sqlSession.selectOne("user.getByNo", no);
+		return sqlSession.selectOne("member.getByNo", no);
 	}
 	
 	//Login시
@@ -41,14 +41,14 @@ public class UserDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("password", password);
-		UserVo userVo = sqlSession.selectOne("user.getByEmailAndPassword", map);
+		UserVo userVo = sqlSession.selectOne("member.getByEmailAndPassword", map);
 		
 		return userVo;
 
 }
 	
 	public UserVo get(String email) throws UserDaoException{
-		UserVo userVo = sqlSession.selectOne("user.getByEmail", email);
+		UserVo userVo = sqlSession.selectOne("member.getByEmail", email);
 		return userVo;
 	}
 }
