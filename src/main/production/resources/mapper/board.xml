@@ -3,15 +3,15 @@
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-		insert into board values(null,#{title },#{contents },0,now(),#{member_no },#{group_no },#{order_no },#{depth });
+		insert into board values(null,#{title },#{contents },0,now(),#{user_no },#{group_no },#{order_no },#{depth });
 	 	]]>	
 	</insert>
 	
 	<select id="getList" resultType="boardvo">
 		<![CDATA[
-		select b.no,b.title,u.name,b.hit,b.reg_date,b.member_no,b.group_no,b.order_no,b.depth 
-		from board b,member u 
-		where b.member_no=u.no 
+		select b.no,b.title,u.name,b.hit,b.reg_date,b.user_no,b.group_no,b.order_no,b.depth 
+		from board b,user u 
+		where b.user_no=u.no 
 		order by group_no desc,order_no asc;
 	 	]]>	
 	</select>
@@ -32,9 +32,9 @@
 	
 	<select id="getPageList" resultType="boardvo" parameterType="map">
 		<![CDATA[
-			select b.no,b.title,u.name,b.hit,b.reg_date,b.member_no,b.group_no,b.order_no,b.depth 
-			from board b,member u 
-			where b.member_no=u.no 
+			select b.no,b.title,u.name,b.hit,b.reg_date,b.user_no,b.group_no,b.order_no,b.depth 
+			from board b,user u 
+			where b.user_no=u.no 
 			order by group_no desc,order_no asc 
 			limit ${(pageNo -1)*numberListPerPage},${numberListPerPage }; 
 		]]>

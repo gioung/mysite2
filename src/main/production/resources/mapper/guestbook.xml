@@ -4,7 +4,8 @@
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[
 		select no, name, contents, date_format(reg_date, '%Y-%m-%d %h:%i:%s') as reg_date 
-		  from guestbook order by reg_date desc
+		  from guestbook
+		order by reg_date desc
 	 	]]>	
 	</select>
 	
